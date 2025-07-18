@@ -82,6 +82,33 @@ def plot_mat(dis):
 
         plt.tight_layout()
         plt.show()
+        
+# def plot_modes()
+# TODO : test this function
+def plot_E_abs(dis):
+    """
+    Plots the absolute value of the electric field for the whole simulation domain.
+    """
+    init_plot_params(28)
+    
+    fig, ax = plt.subplots(figsize=(10, 10))
+    extent = [-0.5 * dis.nElx * dis.scaling, 0.5 * dis.nElx * dis.scaling,
+              -0.5 * dis.nEly * dis.scaling, 0.5 * dis.nEly * dis.scaling]
+    divider = make_axes_locatable(ax)
+    cax = divider.append_axes('right', size='5%', pad=0.05)
+    Eabs = np.sqrt(np.real(dis.Ex)**2 + np.real(dis.Ey)**2 + np.real(dis.Ez)**2)
+    # log scale with max = 0db
+    Eabs = 20 * np.log10(Eabs / np.max(Eabs))
+    # set values below -40db to -40db
+    Eabs[Eabs < -40] = -40
+    im = ax.imshow(np.reshape(Eabs, (dis.nodesY, dis.nodesX)), cmap='jet', origin="lower", extent=extent)
+
+    fig.colorbar(im, cax=cax, orientation='vertical')
+    ax.set_xlabel('$x$ (m)')
+    ax.set_ylabel('$y$ (m)')
+    
+    plt.show()
+    
 
 
 
