@@ -96,7 +96,9 @@ def plot_E_abs(dis):
               -0.5 * dis.nEly * dis.scaling, 0.5 * dis.nEly * dis.scaling]
     divider = make_axes_locatable(ax)
     cax = divider.append_axes('right', size='5%', pad=0.05)
-    Eabs = np.sqrt(np.real(dis.Ex)**2 + np.real(dis.Ey)**2 + np.real(dis.Ez)**2)
+    #Eabs = np.sqrt(np.real(dis.Ex)**2 + np.real(dis.Ey)**2 + np.real(dis.Ez)**2)
+    Eabs = dis.Ex * np.conj(dis.Ex) + dis.Ey * np.conj(dis.Ey) + dis.Ez * np.conj(dis.Ez)
+    Eabs = np.sqrt(np.real(Eabs))
     # log scale with max = 0db
     Eabs = 20 * np.log10(Eabs / np.max(Eabs))
     # set values below -40db to -40db
