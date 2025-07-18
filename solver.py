@@ -18,25 +18,20 @@ class eigen_top_opt_2D:
                   nElx, 
                   nEly,
                   dVini,
-                  n_metal,
-                  k_metal,
-                  n_back,
-                  k_back,
+                  eps_metal,
+                  eps_back,
                   wl,
                   fR,
                   eta,
                   beta,
-                  scaling,
-                  alpha = 0.0):
+                  scaling):
         """
         Initialization of the main class.
         @ nElX: Number of elements in the X axis.
         @ nElY: Number of elements in the Y axis.
         @ dVini: Initial value for the design variables.
-        @ n_metal : Value for the refractive index of the metal.
-        @ k_metal : Value for the exctinction coefficient of the metal.
-        @ n_back: Value for the refractive index of the backgroud medium.
-        @ k_clad: Value for the extinction coefficient of the background medium.
+        @ eps_metal : Value for the relative permittivity of the metal.
+        @ eps_back: Value for the relative permittivity of the background medium.
         @ wl: Wavelength of the problem (Frequency domain solver).
         @ fR: Filtering radius.
         @ eta: parameter that controls threshold value.
@@ -57,28 +52,19 @@ class eigen_top_opt_2D:
         self.dVs = None
         self.eta = eta
         self.beta = beta
-
-        self.n_metal = n_metal
-        self.n_back = n_back
-
-        self.k_metal = k_metal
-        self.k_back = k_back
-
-        self.alpha = alpha # pamping factor
+        self.eps_metal = eps_metal
+        self.eps_back = eps_back
 
         # -----------------------------------------------------------------------------------
         # PHYSICS OF THE PROBLEM
         # ----------------------------------------------------------------------------------- 
         self.scaling = scaling # We give the scaling of the physical problem; i.e. 1e-9 for nm.
 
-        self.phys = phy(self.n_metal,
-                        self.k_metal,
-                        self.n_back,
-                        self.k_back,
+        self.phys = phy(self.eps_metal,
+                        self.eps_back,
                         self.mu,
                         self.scaling,
                         self.wavelength,
-                        alpha = self.alpha
                         ) 
         
 
@@ -134,8 +120,13 @@ class eigen_top_opt_2D:
         Function to plot the electric and magnetic field components.
         """
         plot_E(self.dis_0)
+        
+    def plot_E_abs(self):
+        """
+        Function to plot the absolute value of the electric field components.
+        """
+        plot_E_abs(self.dis_0)
 
-    
     def plot_material(self):
         """
         Function to plot the electric and magnetic field components.

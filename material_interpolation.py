@@ -36,3 +36,16 @@ def material_interpolation_metal(n_metal, k_metal, n_back, k_back, x, alpha=0.0)
 
     return A, dAdx
 
+def material_interpolation_eps(eps_metal, eps_back, x):
+    """
+    Function that implements the material interpolation for a dielectric.
+    It returns the interpolated field and its derivative with respect to the position.
+    @ eps_metal: relative permittivity of the metal.
+    @ eps_back: relative permittivity of the background material.
+    @ x: value of the design variable
+    """
+    eps_eff = eps_back + x*(eps_metal-eps_back)
+    dAdx = (eps_metal-eps_back)
+
+    return eps_eff, dAdx
+

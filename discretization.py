@@ -1,5 +1,5 @@
 from element_matrices import element_matrices
-from material_interpolation import material_interpolation_metal
+from material_interpolation import material_interpolation_eps
 import scipy
 from scipy.sparse.linalg import use_solver
 import numpy as np
@@ -348,7 +348,10 @@ class dis:
         # MATERIAL INTERPOLATION
         # ----------------------------------------------------------------------------------- 
         
-        self.eps, self.depsdx = material_interpolation_metal(phy.n_metal, phy.k_metal, phy.n_back, phy.k_back, self.dFPST, phy.alpha) 
+        # TODO
+        # CAN be changed to liner int of epsilon
+        self.eps, self.depsdx = material_interpolation_eps(phy.eps_metal, phy.eps_back, self.dFPST)
+        #self.eps, self.depsdx = material_interpolation_metal(phy.n_metal, phy.k_metal, phy.n_back, phy.k_back, self.dFPST, phy.alpha) 
 
         # -----------------------------------------------------------------------------------
         # ASSEMBLY OF GLOBAL SYSTEM MATRIX

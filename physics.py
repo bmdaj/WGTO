@@ -4,10 +4,8 @@ class phy:
     " Class that defines the physics of the model."
 
     def __init__( self,
-                 n_metal,
-                 k_metal,
-                 n_back,
-                 k_back,
+                 eps_metal,
+                 eps_back,
                  mu,
                  scale,
                  wavelength,
@@ -25,16 +23,8 @@ class phy:
         # ELECTROMAGNETICS 
         # ------------------------------------------------------------------
 
-        self.n_metal = n_metal
-        self.eps_metal = n_metal**2
-
-        self.k_metal = k_metal
-
-        self.n_back = n_back
-        self.eps_back =  n_back**2
-
-        self.k_back = k_back
-
+        self.eps_metal = eps_metal
+        self.eps_back = eps_back
 
         self.mu = mu
         self.scale = scale
